@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="gimbal" params="namespace parent">
+
+  <joint name="${namespace}/gimbal_joint_pitch" type="continuous">
+    <parent link="${parent}"/>
+    <child link="${namespace}/gimbal_arm_end"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.13 0 0" rpy="0 0 0"/>
+    <dynamics damping="0.5"/>
+  </joint>
+  <transmission name="${namespace}/gimbal_trans_pitch">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${namespace}/gimbal_joint_pitch">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${namespace}/gimbal_motor_pitch">
+       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+       <mechanismReduction>1</mechanismReduction>
+    </actuator>
+</transmission>
+  <link name="${namespace}/gimbal_arm_end">
+    <inertial>
+      <mass value="1e-6"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-2" ixy="0.0" ixz="0.0" iyy="1e-2" iyz="0.0" izz="1e-2"/>
+    </inertial>
+  </link>
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>${namespace}</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+    <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+        <robotNamespace>${namespace}</robotNamespace>
+        <jointName>
+        ${namespace}/gimbal_joint_pitch
+        </jointName>
+        <updateRate>1000</updateRate>
+        <alwaysOn>true</alwaysOn>
+    </plugin>
+</gazebo>
+  </xacro:macro>
+</robot>

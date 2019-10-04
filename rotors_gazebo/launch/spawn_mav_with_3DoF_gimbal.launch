@@ -13,8 +13,8 @@
   <arg name="log_file" default="$(arg mav_name)"/>
   <arg name="wait_to_record_bag" default="false"/>
   <arg name="enable_mavlink_interface" default="false"/>
-  <arg name="1DoF_gimbal" default="true"/>
-  <arg name="3DoF_gimbal" default="false"/>
+  <arg name="1DoF_gimbal" default="false"/>
+  <arg name="3DoF_gimbal" default="true"/>
 
 
   <!-- send the robot XML to param server -->
@@ -48,9 +48,7 @@
       type: effort_controllers/JointPositionController
       joint: firefly/gimbal_joint_pitch
       pid: {p: 0.6, i: 0.01, d: 0.01}
-  </rosparam>
 
-  <rosparam>
     gimbal_joint_position_controller_yaw:
       type: effort_controllers/JointPositionController
       joint: firefly/gimbal_joint_yaw

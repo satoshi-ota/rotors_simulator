@@ -15,6 +15,7 @@
   <arg name="enable_mavlink_interface" default="false"/>
   <arg name="1DoF_gimbal" default="true"/>
   <arg name="3DoF_gimbal" default="false"/>
+  <arg name="horizontal_fov" default="1.3962634"/>
 
 
   <!-- send the robot XML to param server -->
@@ -28,7 +29,8 @@
     mav_name:=$(arg mav_name)
     namespace:=$(arg namespace)
     1DoF_gimbal:=$(arg 1DoF_gimbal)
-    3DoF_gimbal:=$(arg 3DoF_gimbal)"
+    3DoF_gimbal:=$(arg 3DoF_gimbal)
+    horizontal_fov:=$(arg horizontal_fov)"
   />
   <param name="tf_prefix" type="string" value="$(arg tf_prefix)" />
 
@@ -50,17 +52,8 @@
       pid: {p: 0.6, i: 0.01, d: 0.01}
   </rosparam>
 
-  <rosparam>
-    gimbal_joint_position_controller_yaw:
-      type: effort_controllers/JointPositionController
-      joint: firefly/gimbal_joint_yaw
-      pid: {p: 0.6, i: 0.01, d: 0.01}
-  </rosparam>
-
-
   <node name="controller_spawner" pkg="controller_manager"
           type="spawner" respawn="false"
           output="screen" ns="/firefly"
-          args="gimbal_joint_position_controller_pitch
-                gimbal_joint_position_controller_yaw"/>
+          args="gimbal_joint_position_controller_pitch"/>
 </launch>
