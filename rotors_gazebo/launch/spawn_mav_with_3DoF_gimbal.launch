@@ -15,7 +15,21 @@
   <arg name="enable_mavlink_interface" default="false"/>
   <arg name="1DoF_gimbal" default="false"/>
   <arg name="3DoF_gimbal" default="true"/>
+  <arg name="horizontal_fov" default="1.3962634"/>
 
+  <!--depth params-->
+  <arg name="depth_frame_rate" default="30.0"/>
+  <arg name="depth_min_range" default="0.01"/>
+  <arg name="depth_max_range" default="10.0"/>
+  <arg name="depth_width" default="640"/>
+  <arg name="depth_height" default="480"/>
+
+  <!--stereo params-->
+  <arg name="stereo_frame_rate" default="30.0"/>
+  <arg name="stereo_min_range" default="0.02"/>
+  <arg name="stereo_max_range" default="30.0"/>
+  <arg name="stereo_width" default="752"/>
+  <arg name="stereo_height" default="480"/>
 
   <!-- send the robot XML to param server -->
   <param name="robot_description" command="
@@ -28,7 +42,19 @@
     mav_name:=$(arg mav_name)
     namespace:=$(arg namespace)
     1DoF_gimbal:=$(arg 1DoF_gimbal)
-    3DoF_gimbal:=$(arg 3DoF_gimbal)"
+    3DoF_gimbal:=$(arg 3DoF_gimbal)
+    horizontal_fov:=$(arg horizontal_fov)
+    depth_frame_rate:=$(arg depth_frame_rate)
+    depth_max_range:=$(arg depth_max_range)
+    depth_min_range:=$(arg depth_min_range)
+    depth_width:=$(arg depth_width)
+    depth_height:=$(arg depth_height)
+    stereo_frame_rate:=$(arg stereo_frame_rate)
+    stereo_max_range:=$(arg stereo_max_range)
+    stereo_min_range:=$(arg stereo_min_range)
+    stereo_width:=$(arg stereo_width)
+    stereo_height:=$(arg stereo_height)"
+
   />
   <param name="tf_prefix" type="string" value="$(arg tf_prefix)" />
 

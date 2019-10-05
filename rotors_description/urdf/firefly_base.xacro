@@ -62,14 +62,24 @@
   <!-- gimbal-->
   <gimbal namespace="${namespace}" parent="${namespace}/base_link"/>
 
-  <!-- depth camera-->
+  <!-- vi_sensor-->
   <vi_sensor_macro
     namespace="${namespace}/vi_sensor"
     parent_link="${namespace}/gimbal_arm_end"
     enable_cameras="true"
     enable_depth="true"
     enable_ground_truth="true"
-    horizontal_fov="$(arg horizontal_fov)">
+    horizontal_fov="$(arg horizontal_fov)"
+    depth_frame_rate="$(arg depth_frame_rate)"
+    depth_max_range="$(arg depth_max_range)"
+    depth_min_range="$(arg depth_min_range)"
+    depth_width="$(arg depth_width)"
+    depth_height="$(arg depth_height)"
+    stereo_frame_rate="$(arg stereo_frame_rate)"
+    stereo_max_range="$(arg stereo_max_range)"
+    stereo_min_range="$(arg stereo_min_range)"
+    stereo_width="$(arg stereo_width)"
+    stereo_height="$(arg stereo_height)">
     <origin xyz="0 0 0" rpy="0.0 0.1 0.0" />
 </vi_sensor_macro>
 

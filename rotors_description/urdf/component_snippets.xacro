@@ -600,17 +600,17 @@
 
   <!-- Macro to add a VI-sensor stereo camera. -->
   <xacro:macro name="vi_sensor_stereo_camera_macro"
-    params="namespace parent_link frame_rate origin_offset_x baseline_y origin_offset_z max_range horizontal_fov">
+    params="namespace parent_link frame_rate origin_offset_x baseline_y origin_offset_z max_range min_range width height horizontal_fov">
     <xacro:stereo_camera_macro
       namespace="${namespace}"
       camera_name="vi_sensor"
       parent_link="${parent_link}"
       frame_rate="${frame_rate}"
       horizontal_fov="${horizontal_fov}"
-      image_width="752"
-      image_height="480"
+      image_width="${width}"
+      image_height="${height}"
       image_format="L8"
-      min_distance="0.02"
+      min_distance="${min_range}"
       max_distance="${max_range}"
       noise_mean="0.0"
       noise_stddev="0.007"
@@ -624,7 +624,7 @@
 
   <!-- Macro to add a depth camera on the VI-sensor. -->
   <xacro:macro name="vi_sensor_depth_macro"
-    params="namespace parent_link camera_suffix frame_rate max_range horizontal_fov *origin">
+    params="namespace parent_link camera_suffix frame_rate min_range max_range width height horizontal_fov *origin">
     <link name="${namespace}/camera_${camera_suffix}_link">
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -660,11 +660,11 @@
           <horizontal_fov>${horizontal_fov}</horizontal_fov>
           <image>
             <format>L8</format>
-            <width>640</width>
-            <height>480</height>
+            <width>${width}</width>
+            <height>${height}</height>
           </image>
           <clip>
-            <near>0.01</near>
+            <near>${min_range}</near>
             <far>${max_range}</far>
           </clip>
         </camera>
@@ -693,7 +693,7 @@
   </xacro:macro>
 
   <!-- VI-Sensor Macro -->
-  <xacro:macro name="vi_sensor_macro" params="namespace parent_link enable_cameras enable_depth enable_ground_truth horizontal_fov *origin">
+  <xacro:macro name="vi_sensor_macro" params="namespace parent_link enable_cameras enable_depth enable_ground_truth horizontal_fov stereo_frame_rate stereo_max_range stereo_min_range stereo_width stereo_height depth_frame_rate depth_max_range depth_min_range depth_width depth_height *origin">
     <!-- Vi Sensor Link -->
     <link name="${namespace}/vi_sensor_link">
       <collision>
@@ -726,8 +726,8 @@
       <!-- Insert stereo pair. -->
       <xacro:vi_sensor_stereo_camera_macro
         namespace="${namespace}" parent_link="${namespace}/vi_sensor_link"
-        frame_rate="30.0" origin_offset_x="0.015" baseline_y="${0.055*2}"
-        origin_offset_z="0.0065" max_range="30.0" horizontal_fov="${horizontal_fov}">
+        frame_rate="${stereo_frame_rate}" origin_offset_x="0.015" baseline_y="${0.055*2}"
+        origin_offset_z="0.0065" max_range="${stereo_max_range}" min_range="${stereo_min_range}" width="${stereo_width}" height="${stereo_height}" horizontal_fov="${horizontal_fov}">
       </xacro:vi_sensor_stereo_camera_macro>
     </xacro:if>
 
@@ -735,7 +735,7 @@
     <xacro:if value="${enable_depth}">
       <xacro:vi_sensor_depth_macro
         namespace="${namespace}" parent_link="${namespace}/vi_sensor_link"
-        camera_suffix="depth" frame_rate="30.0" max_range="10.0" horizontal_fov="${horizontal_fov}">
+        camera_suffix="depth" frame_rate="${depth_frame_rate}" max_range="${depth_max_range}" min_range="${depth_min_range}" width="${depth_width}" height="${depth_height}" horizontal_fov="${horizontal_fov}">
         <origin xyz="0.015 0.055 0.0065" rpy="0 0 0" />
       </xacro:vi_sensor_depth_macro>
     </xacro:if>
