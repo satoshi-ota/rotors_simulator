@@ -6,7 +6,7 @@
       <collision name="collision">
         <geometry>
           <mesh>
-            <uri>model://vertical_pipe/meshes/vertical_pipe.dae</uri>
+            <uri>model://vertical_pipe/meshes/vertical_pipe_20_1_10.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -14,7 +14,7 @@
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>model://vertical_pipe/meshes/vertical_pipe.dae</uri>
+            <uri>model://vertical_pipe/meshes/vertical_pipe_20_1_10.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
