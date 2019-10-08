@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <model name="Vertical_pipe">
+  <model name="pipe_segment_H10">
     <static>true</static>
     <link name="link">
       <collision name="collision">
         <geometry>
           <mesh>
-            <uri>model://vertical_pipe/meshes/vertical_pipe_20_1_10.dae</uri>
+            <uri>model://pipe_segment_H10/meshes/pipe_segment_H10.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -14,7 +14,7 @@
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>model://vertical_pipe/meshes/vertical_pipe_20_1_10.dae</uri>
+            <uri>model://pipe_segment_H10/meshes/pipe_segment_H10.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
